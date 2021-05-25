@@ -11,6 +11,7 @@ parser.add_argument("--bmc_url")
 parser.add_argument("--manager_url")
 parser.add_argument("--image_url")
 parser.add_argument("--eject")
+parser.add_argument("--type")
 args = parser.parse_args()
 
 basic_auth = auth.BasicAuth(username=args.username, password=args.password)
@@ -19,7 +20,7 @@ mgr_inst = s.get_manager(args.manager_url)
 vmedia_list = mgr_inst.virtual_media.get_members()
 
 for vmedia in vmedia_list:
-    if "dvd" in vmedia.media_types:
+    if args.type in vmedia.media_types:
         if args.eject:
             vmedia.eject_media()
         vmedia.refresh()
