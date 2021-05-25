@@ -10,6 +10,7 @@ parser.add_argument("--password")
 parser.add_argument("--bmc_url")
 parser.add_argument("--manager_url")
 parser.add_argument("--image_url")
+parser.add_argument("--eject")
 args = parser.parse_args()
 
 basic_auth = auth.BasicAuth(username=args.username, password=args.password)
@@ -19,7 +20,8 @@ vmedia_list = mgr_inst.virtual_media.get_members()
 
 for vmedia in vmedia_list:
     if "dvd" in vmedia.media_types:
-        vmedia.eject_media()
+        if args.eject:
+            vmedia.eject_media()
         vmedia.refresh()
         print("vmedia state prior to attempting attach: media_types:", vmedia.media_types, "image:" , vmedia.image, "inserted:", vmedia.inserted)
         vmedia.insert_media(args.image_url, inserted=True, write_protected=True)
