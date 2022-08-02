@@ -26,5 +26,5 @@ system = s.get_system(args.system_url)
 try:
     system.set_system_boot_options(bootdev, sushy.BOOT_SOURCE_ENABLED_ONCE)
     print("Setting boot device succeeded")
-except sushy.exceptions.SushyError:
-    print("Setting boot device failed")
+except sushy.exceptions.SushyError as exc:
+    print("Setting boot device failed:", str(exc))
