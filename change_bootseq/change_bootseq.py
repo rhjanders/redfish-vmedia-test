@@ -1,3 +1,4 @@
+import logging
 import sushy
 from sushy import auth
 from sushy import exceptions
@@ -6,6 +7,11 @@ urllib3.disable_warnings()
 import argparse
 import sys
 import time
+
+LOG = logging.getLogger('sushy')
+LOG.setLevel(logging.DEBUG)
+LOG.addHandler(logging.StreamHandler())
+
 parser = argparse.ArgumentParser()
 parser.add_argument("--username")
 parser.add_argument("--password")
